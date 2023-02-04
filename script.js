@@ -17,13 +17,39 @@ function oneRound() {
     let computerSelection = getComputerChoice();
     console.log('The computer chose',computerSelection)
     if (playerSelection == computerSelection) {
-        return 'TIE!';
+        return 'TIE';
     } else if (((playerSelection == 'ROCK') && (computerSelection == 'SCISSORS')) || ((playerSelection == 'PAPER') && (computerSelection == 'ROCK')) || ((playerSelection == 'SCISSORS') && (computerSelection == 'PAPER'))) {
-        return 'CONGRATS YOU WON!!!'
+        return 'WIN'
     } else if (((computerSelection == 'ROCK') && (playerSelection == 'SCISSORS')) || ((computerSelection == 'PAPER') && (playerSelection == 'ROCK')) || ((computerSelection == 'SCISSORS') && (playerSelection == 'PAPER'))){
-        return 'LMAO LOSER'
+        return 'LOSER'
     } else {
         return 'Might have made a typo'
     }
 }
-console.log(oneRound())
+
+function game () {
+    let playerScore = 0;
+    let computerScore = 0;
+    for (let i = 0; i < 5 ; i++) {
+        let result = oneRound();
+        if (result == 'LOSER') {
+            computerScore += 1;
+            console.log(computerScore,'L');
+        } else if (result == 'WIN') {
+            playerScore += 1;
+            console.log('+1');
+        } else {
+            console.log('DRAW');
+        }
+    }
+    console.log('Score is',playerScore,'vs',computerScore);
+    if (playerScore > computerScore){
+        console.log('YOU WIN');
+    } else if (computerScore > playerScore) {
+        console.log('YOU LOSE')
+    } else {
+        console.log('TIE GAME')
+    }
+}
+
+game();
