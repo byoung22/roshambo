@@ -11,11 +11,8 @@ function getComputerChoice() {
     return choice;
 }
 
-function oneRound() {
-    let playerSelection = prompt('Choose Rock, Paper, or Scissors');
-    playerSelection = playerSelection.toUpperCase();
-    let computerSelection = getComputerChoice();
-    console.log('The computer chose',computerSelection)
+function oneRound(playerSelection) {
+    computerSelection = getComputerChoice();
     if (playerSelection == computerSelection) {
         return 'TIE';
     } else if (((playerSelection == 'ROCK') && (computerSelection == 'SCISSORS')) || ((playerSelection == 'PAPER') && (computerSelection == 'ROCK')) || ((playerSelection == 'SCISSORS') && (computerSelection == 'PAPER'))) {
@@ -27,6 +24,21 @@ function oneRound() {
     }
 }
 
+let player;
+let computerSelection;
+const buttons = document.querySelectorAll('button');
+const result = document.querySelector('#result');
+const compDisplay = document.querySelector('#compChoice')
+
+buttons.forEach((buttonSelection) => {
+    buttonSelection.addEventListener('click', () => {
+        player = buttonSelection.className;
+        result.textContent = oneRound(player);
+        compDisplay.textContent = `The computer chose ${computerSelection}`
+    })
+})
+
+/*
 function game () {
     let playerScore = 0;
     let computerScore = 0;
@@ -53,3 +65,4 @@ function game () {
 }
 
 game();
+*/
