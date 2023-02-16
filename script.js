@@ -16,7 +16,7 @@ function oneRound(playerSelection) {
     if (playerSelection == computerSelection) {
         return 'TIE';
     } else if (((playerSelection == 'ROCK') && (computerSelection == 'SCISSORS')) || ((playerSelection == 'PAPER') && (computerSelection == 'ROCK')) || ((playerSelection == 'SCISSORS') && (computerSelection == 'PAPER'))) {
-        return 'WIN'
+        return 'WINNER'
     } else if (((computerSelection == 'ROCK') && (playerSelection == 'SCISSORS')) || ((computerSelection == 'PAPER') && (playerSelection == 'ROCK')) || ((computerSelection == 'SCISSORS') && (playerSelection == 'PAPER'))){
         return 'LOSER'
     } else {
@@ -28,12 +28,18 @@ let player;
 let computerSelection;
 const buttons = document.querySelectorAll('button');
 const result = document.querySelector('#result');
-const compDisplay = document.querySelector('#compChoice')
+const b2 = document.querySelector('#b2');
+const compDisplay = document.createElement('div');
+
+if (!computerSelection) {
+    result.innerHTML = '<img src="./photos/lit.gif" alt="rps gif">';
+} 
 
 buttons.forEach((buttonSelection) => {
     buttonSelection.addEventListener('click', () => {
         player = buttonSelection.className;
-        result.textContent = oneRound(player);
+        b2.appendChild(compDisplay);
+        result.textContent = oneRound(player); // Result of playing a round
         compDisplay.textContent = `The computer chose ${computerSelection}`
     })
 })
