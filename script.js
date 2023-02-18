@@ -16,9 +16,9 @@ function oneRound(playerSelection) {
     if (playerSelection == computerSelection) {
         return 'TIE';
     } else if (((playerSelection == 'ROCK') && (computerSelection == 'SCISSORS')) || ((playerSelection == 'PAPER') && (computerSelection == 'ROCK')) || ((playerSelection == 'SCISSORS') && (computerSelection == 'PAPER'))) {
-        return 'WINNER'
+        return 'YOU WIN!'
     } else if (((computerSelection == 'ROCK') && (playerSelection == 'SCISSORS')) || ((computerSelection == 'PAPER') && (playerSelection == 'ROCK')) || ((computerSelection == 'SCISSORS') && (playerSelection == 'PAPER'))){
-        return 'LOSER'
+        return 'YOU LOSE :('
     } else {
         return 'Might have made a typo'
     }
@@ -26,10 +26,14 @@ function oneRound(playerSelection) {
 
 let player;
 let computerSelection;
+let playerWins = 0;
+let computerWins = 0;
+const computerScore = document.querySelector('.computerScore .score');
+const playerScore = document.querySelector('.playerScore .score');
 const buttons = document.querySelectorAll('button');
 const result = document.querySelector('#result');
 const b2 = document.querySelector('#b2');
-const compDisplay = document.createElement('div');
+const compDisplay = document.createElement('div'); 
 
 if (!computerSelection) {
     result.innerHTML = '<img src="./photos/lit.gif" alt="rps gif">';
@@ -38,9 +42,28 @@ if (!computerSelection) {
 buttons.forEach((buttonSelection) => {
     buttonSelection.addEventListener('click', () => {
         player = buttonSelection.className;
-        b2.appendChild(compDisplay);
-        result.textContent = oneRound(player); // Result of playing a round
+        b2.insertBefore(compDisplay, result);
+        let whoWon = oneRound(player);
+        if (whoWon === 'YOU WIN!') {
+            playerWins++;
+        } else if (whoWon === 'YOU LOSE :(') {
+            computerWins++;
+        }
+        computerScore.textContent = computerWins;
+        playerScore.textContent = playerWins;
+        result.textContent = whoWon; // Result of playing a round
+        result.setAttribute('style', 'font-size: 40px;')
         compDisplay.textContent = `The computer chose ${computerSelection}`
+        compDisplay.setAttribute('style', 'font-size: 33px;');
+        if (playerWins == 5) {
+            alert('YOU WIN');
+            playerWins = 0;
+            computerWins = 0;
+        } else if (computerWins == 5) {
+            alert('LOSER');
+            playerWins = 0;
+            computerWins = 0;
+        }
     })
 })
 
